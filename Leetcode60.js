@@ -1,22 +1,23 @@
 /**
+URL:   https://leetcode.com/problems/permutation-sequence/description/
+My Profile: https://leetcode.com/u/berrami/
+*/
+/**
  * @param {number} n
  * @param {number} k
  * @return {string}
  */
 var getPermutation = function(n, k) {
-    let arr = [1]
-    for (let i = 1 ; i <= n ; i++) arr[i] = arr[i-1] * i
-    let array = Array(n).fill(0).map((e,ind) => ind + 1)
     let res = ""
-    while (array.length > 1) {
-        let r = (arr[n] / arr[n-1]) < k ?Math.ceil(k/arr[n-1]) : 0
-        k -= r
-        r = r > 0 ? r - 1 : 0
-        res += array[r]
-        array.splice(r, 1)
-        n--
-    }
-    return res
+  let arr = Array(n).fill(0).map((e,ind) => ind + 1)
+  let a = [1]
+  for (let i = 1 ; i <= n;i++)a[i]=(a[i-1]*i)
+  while (arr.length > 0) {
+    let r = Math.ceil(k/a[n-1]) - 1
+    k -= r*a[n-1]
+    n--
+    res += arr[r]
+    arr.splice(r,1)
+  }
+  return res
 };
-console.log(getPermutation(3,3));
-console.log(getPermutation(4,5));
